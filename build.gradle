@@ -1,9 +1,31 @@
 
-apply plugin: 'java'
-apply plugin: 'war'
+plugins {
+    id 'java'
+    id 'idea'
+}
 
-group 'rocket-chat'
+group = 'com.rocket-chat'
+
 version '1.0'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+def envType = 'development'
+if (project.hasProperty('production')) {
+    envType = 'production'
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir "src/main/resources/${envType}"
+        }
+    }
+}
 
 repositories {
     mavenCentral()
@@ -14,4 +36,5 @@ dependencies {
     compile 'com.sparkjava:spark-core:2.8.0'
     compile "org.slf4j:slf4j-api:1.6.1"
     compile "org.slf4j:slf4j-simple:1.6.1"
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
