@@ -68,7 +68,7 @@ An user creates a new chat.
 ```json
 {
     "type": "create_chat", 
-    "name": "<the chat name>"
+    "chat": Chat
 }
 ```
 
