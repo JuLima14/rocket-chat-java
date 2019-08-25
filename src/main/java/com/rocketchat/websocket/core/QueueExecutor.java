@@ -1,10 +1,11 @@
-package com.rocketchat.core;
+package com.rocketchat.websocket.core;
 
+import com.rocketchat.websocket.core.consumers.Consumer;
+import com.rocketchat.websocket.core.producers.Producer;
 import com.rocketchat.models.message.Message;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class QueueExecutor implements Runnable {
@@ -18,10 +19,7 @@ public class QueueExecutor implements Runnable {
     }
 
     public void start() {
-
-        Thread thread = new Thread(this, "MessageQueueThread");
-        thread.setDaemon(true);
-        thread.start();
+        new Thread(this, "MessageQueueThread").start();
     }
 
     @Override
