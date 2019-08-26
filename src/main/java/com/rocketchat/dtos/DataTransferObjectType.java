@@ -18,5 +18,5 @@ public abstract class DataTransferObjectType {
         this.type = type;
     }
 
-    public abstract void validate() throws JsonSyntaxException;
+    public abstract DataTransferObjectType validate() throws JsonSyntaxException;
 }

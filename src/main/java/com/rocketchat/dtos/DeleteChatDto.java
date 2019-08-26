@@ -21,9 +21,10 @@ public class DeleteChatDto extends DataTransferObjectType {
     }
 
     @Override
-    public void validate() throws JsonSyntaxException {
+    public DeleteChatDto validate() throws JsonSyntaxException {
         if(!type.equals("delete_chat")) {
             throw new JsonSyntaxException("!type.equals(\"delete_chat\")");
         }
+        return this;
     }
 }

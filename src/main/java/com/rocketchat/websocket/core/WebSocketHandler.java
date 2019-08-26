@@ -1,41 +1,43 @@
 package com.rocketchat.websocket.core;
 
-import com.rocketchat.websocket.core.providers.JSONInterpreter;
+import com.rocketchat.websocket.core.interpreters.JSONInterpreter;
 import com.rocketchat.websocket.models.Connection;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
-import java.net.InetSocketAddress;
-
-import java.util.concurrent.ConcurrentHashMap;
+import java.io.IOException;
+import java.util.Optional;
 
 @WebSocket
 public class WebSocketHandler {
 
-    private final ConcurrentHashMap<InetSocketAddress, Connection> sessions = new ConcurrentHashMap<>();
     private final JSONInterpreter interpreter;
-    private final QueueExecutor executor;
+    private final ConnectionsHandler connectionsHandler;
 
-    public WebSocketHandler(QueueExecutor executor, JSONInterpreter interpreter) {
-        this.executor = executor;
+    public WebSocketHandler(JSONInterpreter interpreter, ConnectionsHandler connectionsHandler) {
         this.interpreter = interpreter;
-
-        executor.start();
+        this.connectionsHandler = connectionsHandler;
     }
 
     @OnWebSocketConnect
-    public void onConnect(Session session) {
-        System.out.println("Connect: " + session.getRemoteAddress().getAddress());
+    public void onConnect(Session session) throws IOException {
+        Optional<String> userId = Optional.of(session.getUpgradeRequest().getHeader("user_id"));
 
-        sessions.put(session.getRemoteAddress(), new Connection(session));
+        if (userId.orElse("").isEmpty()) {
+            System.out.println("Fail to connect with: " + session.getRemoteAddress().getAddress());
+            session.getRemote().sendString("invalid connection");
+            session.close();
+        } else {
+            System.out.println("Connect: " + session.getRemoteAddress().getAddress());
+            connectionsHandler.set(userId.get(), new Connection(session));
+        }
     }
 
     @OnWebSocketClose
     public void onClose(Session session, int statusCode, String reason) {
         System.out.println("Close: statusCode=" + statusCode + ", reason=" + reason);
-
-        sessions.remove(session.getRemoteAddress());
+        connectionsHandler.remove(session.getUpgradeRequest().getHeader("user_id"));
     }
 
     @OnWebSocketError
@@ -46,14 +48,20 @@ public class WebSocketHandler {
     @OnWebSocketMessage
     public void onMessage(Session session, byte[] data, int offset, int length) {
         System.out.println("New Binary Message Received");
-
-        interpreter.process(data);
+        String userId = session.getUpgradeRequest().getHeader("user_id");
+        if(!userId.isEmpty()) {
+            interpreter.process(data, connectionsHandler.get(userId));
+        }
     }
 
     @OnWebSocketMessage
     public void onMessage(Session session, String message) {
         System.out.println("New Text Message Received");
-
-        interpreter.process(message.getBytes());
+        String userId = session.getUpgradeRequest().getHeader("user_id");
+        if(!userId.isEmpty()) {
+            interpreter.process(message.getBytes(), connectionsHandler.get(userId));
+        }
     }
+
 }
+

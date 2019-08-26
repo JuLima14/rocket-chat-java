@@ -1,8 +1,10 @@
-package com.rocketchat.websocket.core.providers;
+package com.rocketchat.websocket.core;
 
-import com.rocketchat.websocket.core.ConnectionsHandler;
+import com.rocketchat.models.user.User;
+import com.rocketchat.storage.Storage;
 import com.rocketchat.websocket.models.Connection;
 
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class WebSocketConnectionsHandler implements ConnectionsHandler {
@@ -11,6 +13,7 @@ public class WebSocketConnectionsHandler implements ConnectionsHandler {
     public WebSocketConnectionsHandler() {
         this.sessions = new ConcurrentHashMap<>();
     }
+
     @Override
     public Connection get(String userId) {
         return sessions.get(userId);
@@ -19,5 +22,10 @@ public class WebSocketConnectionsHandler implements ConnectionsHandler {
     @Override
     public void set(String key, Connection connection) {
         sessions.put(key, connection);
+    }
+
+    @Override
+    public void remove(String key) {
+        sessions.remove(key);
     }
 }

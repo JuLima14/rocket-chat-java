@@ -10,12 +10,12 @@ import java.util.List;
 
 public class QueueExecutor implements Runnable {
 
-    Producer producer;
-    List<Consumer> consumers;
+    private Producer producer;
+    private static List<Consumer> consumers = new ArrayList<>();
 
     public QueueExecutor(Producer producer) {
         this.producer = producer;
-        this.consumers = new ArrayList<>();
+        start();
     }
 
     public void start() {
@@ -55,11 +55,13 @@ public class QueueExecutor implements Runnable {
             }
     }
 
-    public void addConsumer(Consumer consumer) {
-        consumers.add(consumer);
+    public static void addConsumer(Consumer consumer) {
+        if(!consumers.contains(consumer)) {
+            consumers.add(consumer);
+        }
     }
 
-    public void removeConsumer(Consumer consumer) {
+    public static void removeConsumer(Consumer consumer) {
         consumers.remove(consumer);
     }
 }

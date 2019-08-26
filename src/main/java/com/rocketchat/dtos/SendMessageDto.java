@@ -32,9 +32,10 @@ public class SendMessageDto extends DataTransferObjectType {
     }
 
     @Override
-    public void validate() throws JsonSyntaxException {
+    public SendMessageDto validate() throws JsonSyntaxException {
         if(!type.equals("send_message")) {
             throw new JsonSyntaxException("!type.equals(\"send_message\")");
         }
+        return this;
     }
 }

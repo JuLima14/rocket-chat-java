@@ -1,4 +1,6 @@
-package com.rocketchat.websocket.core.providers;
+package com.rocketchat.websocket.core.interpreters;
+
+import com.rocketchat.websocket.models.Connection;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ public class JSONInterpreterProcessor implements JSONInterpreter {
     }
 
     @Override
-    public void process(byte[] data) {
-        interpreters.stream().forEach(jsonInterpreter -> jsonInterpreter.process(data));
+    public void process(byte[] data, Connection connection) {
+        interpreters.stream().forEach(jsonInterpreter -> jsonInterpreter.process(data, connection));
     }
 }

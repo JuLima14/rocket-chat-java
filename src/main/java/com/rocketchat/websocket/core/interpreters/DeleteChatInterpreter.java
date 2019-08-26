@@ -1,17 +1,18 @@
-package com.rocketchat.websocket.core.providers;
+package com.rocketchat.websocket.core.interpreters;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.rocketchat.dtos.DeleteChatDto;
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.storage.Storage;
+import com.rocketchat.websocket.models.Connection;
 
 import java.util.Optional;
 
 public class DeleteChatInterpreter implements JSONInterpreter {
 
-    Gson gson;
-    Storage<Chat> storageChat;
+    private Gson gson;
+    private Storage<Chat> storageChat;
 
     public DeleteChatInterpreter(Gson gson, Storage<Chat> storageChat) {
         this.gson = gson;
@@ -19,13 +20,13 @@ public class DeleteChatInterpreter implements JSONInterpreter {
     }
 
     @Override
-    public void process(byte[] data) {
-        try{
-            DeleteChatDto message = gson.fromJson(new String(data), DeleteChatDto.class);
-            message.validate();
+    public void process(byte[] data, Connection connection) {
+        try {
+            DeleteChatDto message = gson.fromJson(new String(data), DeleteChatDto.class).validate();
+
             Optional<Chat> chatFound = storageChat.get()
                     .stream()
-                    .filter(chat -> chat.getId() == message.getChat().getId())
+                    .filter(chat -> chat.getId().equals(message.getChat().getId()))
                     .findFirst();
 
             if(chatFound.isPresent()) {
@@ -33,8 +34,7 @@ public class DeleteChatInterpreter implements JSONInterpreter {
                     storageChat.remove(chatFound.get());
                 }
             }
-            // do the stuff necessary to remove a chat
-        }catch (JsonSyntaxException e) {
+        } catch (JsonSyntaxException e) {
             e.printStackTrace();
         }
     }

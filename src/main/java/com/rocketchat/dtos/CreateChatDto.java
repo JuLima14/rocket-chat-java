@@ -21,9 +21,10 @@ public class CreateChatDto extends DataTransferObjectType {
     }
 
     @Override
-    public void validate() throws JsonSyntaxException {
+    public CreateChatDto validate() throws JsonSyntaxException {
         if(!type.equals("create_chat")) {
             throw new JsonSyntaxException("!type.equals(\"create_chat\")");
         }
+        return this;
     }
 }

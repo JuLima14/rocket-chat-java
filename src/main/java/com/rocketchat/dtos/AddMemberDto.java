@@ -14,10 +14,27 @@ public class AddMemberDto extends DataTransferObjectType {
         this.user = user;
     }
 
+    public Chat getChat() {
+        return chat;
+    }
+
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
-    public void validate() throws JsonSyntaxException {
+    public AddMemberDto validate() throws JsonSyntaxException {
         if(!type.equals("add_member")) {
             throw new JsonSyntaxException("!type.equals(\"add_member\")");
         }
+        return this;
     }
 }

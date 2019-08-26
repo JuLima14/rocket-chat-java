@@ -20,4 +20,9 @@ public class InMemoryStorage<P> implements Storage<P> {
     public void set(P value) {
         storage.add(value);
     }
+
+    @Override
+    public Boolean remove(P value) {
+        return storage.remove(value);
+    }
 }
