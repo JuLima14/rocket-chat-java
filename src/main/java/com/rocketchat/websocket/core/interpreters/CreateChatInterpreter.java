@@ -21,6 +21,10 @@ public class CreateChatInterpreter implements JSONInterpreter{
         try{
             CreateChatDto message = gson.fromJson(new String(data), CreateChatDto.class);
             message.validate();
+
+            if(!storageChat.get().contains(message.getChat())) {
+                storageChat.set(message.getChat());
+            }
             // do the stuff necessary to remove a chat
         }catch (JsonSyntaxException e) {
             e.printStackTrace();
