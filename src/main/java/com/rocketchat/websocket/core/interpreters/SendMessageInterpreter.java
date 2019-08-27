@@ -20,7 +20,7 @@ public class SendMessageInterpreter implements JSONInterpreter {
 
     @Override
     public void process(byte[] data, Connection connection) {
-        try{
+        try {
             SendMessageDto message = gson.fromJson(new String(data), SendMessageDto.class).validate();
 
             QueueExecutor.addConsumer(new MessageConsumer(message.getChat(),
@@ -29,8 +29,8 @@ public class SendMessageInterpreter implements JSONInterpreter {
 
             producer.updateList(message.getMessage());
 
-        }catch (JsonSyntaxException e) {
-            e.printStackTrace();
+        } catch (JsonSyntaxException e) {
+            System.out.println("The message is not a SendMessageDto");
         }
     }
 }

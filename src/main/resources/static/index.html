@@ -33,8 +33,6 @@
     const sendImageButton = document.getElementById("sendImage");
     const socket = new WebSocket("ws://localhost:8080/socket");
 
-    socket.setRequestHeader("user_id", "user_id");
-
     socket.binaryType = "arraybuffer";
 
     socket.onopen = function (event) {
