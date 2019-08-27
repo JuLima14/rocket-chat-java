@@ -1,0 +1,30 @@
+{
+    "text": "hola",
+    "userSender": {
+        "name": "pedro",
+        "urlProfileImage": "987654321",
+        "phoneNumber": "987654321",
+        "stateProfile": "primer estado",
+        "lastConnectionDate": "Aug 24, 2019, 7:00:15 PM"
+    },
+    "sendDate": "Aug 24, 2019, 7:00:15 PM",
+    "chat": {
+        "messageList": [],
+        "users": [
+            {
+                "name": "julian",
+                "urlProfileImage": "123456789",
+                "phoneNumber": "123456789",
+                "stateProfile": "primer estado admin",
+                "lastConnectionDate": "Aug 24, 2019, 7:00:15 PM"
+            },
+            {
+                "name": "pedro",
+                "urlProfileImage": "987654321",
+                "phoneNumber": "987654321",
+                "stateProfile": "primer estado",
+                "lastConnectionDate": "Aug 24, 2019, 7:00:15 PM"
+            }
+        ]
+    }
+}
