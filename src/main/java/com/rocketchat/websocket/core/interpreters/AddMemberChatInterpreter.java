@@ -16,11 +16,11 @@ public class AddMemberChatInterpreter implements JSONInterpreter {
 
     @Override
     public void process(byte[] data, Connection connection) {
-        try{
+        try {
             AddMemberDto message = gson.fromJson(new String(data), AddMemberDto.class).validate();
-            // do the stuff necessary to remove a chat
-        }catch (JsonSyntaxException e) {
-            e.printStackTrace();
+
+        } catch (JsonSyntaxException e) {
+            System.out.println("The message is not a AddMemberDto");
         }
     }
 }

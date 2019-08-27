@@ -19,11 +19,11 @@ public class RegisterUserInterpreter implements JSONInterpreter {
 
     @Override
     public void process(byte[] data, Connection connection) {
-        try{
+        try {
             RegisterUserDto message = gson.fromJson(new String(data), RegisterUserDto.class).validate();
 
-        }catch (JsonSyntaxException e) {
-            e.printStackTrace();
+        } catch (JsonSyntaxException e) {
+            System.out.println("The message is not a RegisterUserDto");
         }
     }
 }

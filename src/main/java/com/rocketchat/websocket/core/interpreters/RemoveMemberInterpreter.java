@@ -25,7 +25,7 @@ public class RemoveMemberInterpreter implements JSONInterpreter {
 
     @Override
     public void process(byte[] data, Connection connection) {
-        try{
+        try {
             RemoveMemberDto message = gson.fromJson(new String(data), RemoveMemberDto.class).validate();
 
             Optional<Chat> chatFound = storageChat.get()
@@ -48,8 +48,8 @@ public class RemoveMemberInterpreter implements JSONInterpreter {
                 }
             }
 
-        }catch (JsonSyntaxException e) {
-            e.printStackTrace();
+        } catch (JsonSyntaxException e) {
+            System.out.println("The message is not a RemoveMemberDto");
         }
     }
 }

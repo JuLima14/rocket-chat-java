@@ -35,7 +35,7 @@ public class DeleteChatInterpreter implements JSONInterpreter {
                 }
             }
         } catch (JsonSyntaxException e) {
-            e.printStackTrace();
+            System.out.println("The message is not a DeleteChatDto");
         }
     }
 }

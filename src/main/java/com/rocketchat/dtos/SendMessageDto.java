@@ -1,6 +1,7 @@
 package com.rocketchat.dtos;
 
 import com.google.gson.JsonSyntaxException;
+
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.models.message.Message;
 

@@ -3,6 +3,7 @@ package com.rocketchat.websocket.core;
 import com.rocketchat.websocket.core.interpreters.JSONInterpreter;
 import com.rocketchat.websocket.models.Connection;
 import org.eclipse.jetty.websocket.api.Session;
+import org.eclipse.jetty.websocket.api.UpgradeRequest;
 import org.eclipse.jetty.websocket.api.annotations.*;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
@@ -22,22 +23,24 @@ public class WebSocketHandler {
 
     @OnWebSocketConnect
     public void onConnect(Session session) throws IOException {
-        Optional<String> userId = Optional.of(session.getUpgradeRequest().getHeader("user_id"));
-
-        if (userId.orElse("").isEmpty()) {
+        String userId = getHeader("user_id", session);
+        if (userId.isEmpty()) {
             System.out.println("Fail to connect with: " + session.getRemoteAddress().getAddress());
             session.getRemote().sendString("invalid connection");
             session.close();
         } else {
             System.out.println("Connect: " + session.getRemoteAddress().getAddress());
-            connectionsHandler.set(userId.get(), new Connection(session));
+            connectionsHandler.set(userId, new Connection(session));
         }
     }
 
     @OnWebSocketClose
     public void onClose(Session session, int statusCode, String reason) {
         System.out.println("Close: statusCode=" + statusCode + ", reason=" + reason);
-        connectionsHandler.remove(session.getUpgradeRequest().getHeader("user_id"));
+        String userId = getHeader("user_id", session);
+        if(!userId.isEmpty()) {
+            connectionsHandler.remove(userId);
+        }
     }
 
     @OnWebSocketError
@@ -48,7 +51,7 @@ public class WebSocketHandler {
     @OnWebSocketMessage
     public void onMessage(Session session, byte[] data, int offset, int length) {
         System.out.println("New Binary Message Received");
-        String userId = session.getUpgradeRequest().getHeader("user_id");
+        String userId = getHeader("user_id", session);
         if(!userId.isEmpty()) {
             interpreter.process(data, connectionsHandler.get(userId));
         }
@@ -57,10 +60,24 @@ public class WebSocketHandler {
     @OnWebSocketMessage
     public void onMessage(Session session, String message) {
         System.out.println("New Text Message Received");
-        String userId = session.getUpgradeRequest().getHeader("user_id");
+        String userId = getHeader("user_id", session);
         if(!userId.isEmpty()) {
             interpreter.process(message.getBytes(), connectionsHandler.get(userId));
         }
+    }
+
+    private String getHeader(String key, Session session) {
+        Optional<UpgradeRequest> upgradeRequest = Optional.of(session.getUpgradeRequest());
+
+        if(upgradeRequest.isPresent()) {
+            String userId = upgradeRequest.get().getHeader(key);
+            if(userId == null) {
+                return "user_id";  // TODO: mock remove for new String
+            }
+            return userId;
+        }
+
+        return new String();
     }
 
 }
