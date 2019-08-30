@@ -8,7 +8,7 @@ public class RemoveMemberDto extends DataTransferObjectType {
     private Chat chat;
     private User user;
 
-    public RemoveMemberDto(Chat chat, User user, String type) {
+    public RemoveMemberDto(String type, Chat chat, User user) {
         super(type);
         this.chat = chat;
         this.user = user;

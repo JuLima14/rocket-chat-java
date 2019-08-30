@@ -1,11 +1,10 @@
 package com.rocketchat.websocket.core;
 
-import com.rocketchat.websocket.core.interpreters.JSONInterpreter;
+import com.rocketchat.websocket.interpreters.JSONInterpreter;
 import com.rocketchat.websocket.models.Connection;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.UpgradeRequest;
 import org.eclipse.jetty.websocket.api.annotations.*;
-import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -77,7 +76,7 @@ public class WebSocketHandler {
             return userId;
         }
 
-        return new String();
+        return "";
     }
 
 }

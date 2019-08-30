@@ -1,0 +1,22 @@
+{
+    "chat": {
+        "admins": [],
+        "users": [
+            {
+                "name": "Julián",
+                "urlProfileImage": "http://urlToImage.com",
+                "phoneNumber": "123456789",
+                "stateProfile": "Hey im using rocket chat",
+                "lastConnectionDate": "Aug 28, 2019, 10:09:59 PM"
+            },
+            {
+                "name": "Pedro",
+                "urlProfileImage": "http://urlToImage.com",
+                "phoneNumber": "987654321",
+                "stateProfile": "(U)",
+                "lastConnectionDate": "Aug 28, 2019, 10:09:59 PM"
+            }
+        ]
+    },
+    "type": "create_chat"
+}
