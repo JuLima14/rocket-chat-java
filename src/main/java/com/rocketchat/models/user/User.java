@@ -11,7 +11,7 @@ public class User {
 
     public User(String name, String urlProfileImage, String phoneNumber, String stateProfile, Date lastConnectionDate) {
         this.name = name;
-        this.urlProfileImage = phoneNumber;
+        this.urlProfileImage = urlProfileImage;
         this.phoneNumber = phoneNumber;
         this.stateProfile = stateProfile;
         this.lastConnectionDate = lastConnectionDate;

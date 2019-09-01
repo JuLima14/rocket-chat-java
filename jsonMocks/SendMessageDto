@@ -1,0 +1,70 @@
+{
+    "chat": {
+        "admins": [],
+        "users": [
+            {
+                "name": "Julián",
+                "urlProfileImage": "123456789",
+                "phoneNumber": "123456789",
+                "stateProfile": "Hey im using rocket chat",
+                "lastConnectionDate": "Aug 28, 2019, 10:09:59 PM"
+            },
+            {
+                "name": "Pedro",
+                "urlProfileImage": "987654321",
+                "phoneNumber": "987654321",
+                "stateProfile": "(U)",
+                "lastConnectionDate": "Aug 28, 2019, 10:09:59 PM"
+            }
+        ]
+    },
+    "message": {
+        "userSender": {
+            "name": "Julián",
+            "urlProfileImage": "http://urlToImage.com",
+            "phoneNumber": "123456789",
+            "stateProfile": "Hey im using rocket chat",
+            "lastConnectionDate": "Aug 28, 2019, 10:09:59 PM"
+        },
+        "sendDate": "Aug 28, 2019, 10:09:59 PM",
+        "chat": {
+            "admins": [],
+            "users": [
+                {
+                    "name": "Julián",
+                    "urlProfileImage": "http://urlToImage.com",
+                    "phoneNumber": "123456789",
+                    "stateProfile": "Hey im using rocket chat",
+                    "lastConnectionDate": "Aug 28, 2019, 10:09:59 PM"
+                },
+                {
+                    "name": "Pedro",
+                    "urlProfileImage": "http://urlToImage.com",
+                    "phoneNumber": "987654321",
+                    "stateProfile": "(U)",
+                    "lastConnectionDate": "Aug 28, 2019, 10:09:59 PM"
+                }
+            ]
+        },
+        "data": [
+            72,
+            111,
+            108,
+            97,
+            44,
+            32,
+            116,
+            111,
+            100,
+            111,
+            32,
+            98,
+            105,
+            101,
+            110,
+            32,
+            63
+        ]
+    },
+    "type": "send_message"
+}

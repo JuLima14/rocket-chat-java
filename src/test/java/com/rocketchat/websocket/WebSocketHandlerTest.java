@@ -12,21 +12,26 @@ class WebSocketHandlerTest {
 
     @Test
     public void testOnConnect() {
+
     }
 
     @Test
     public void testOnClose() {
+
     }
 
     @Test
     public void testOnError() {
+
     }
 
     @Test
     public void testOnMessage1() {
+
     }
 
     @Test
     public void testOnMessage2() {
+
     }
 }
