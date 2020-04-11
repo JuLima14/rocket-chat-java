@@ -9,19 +9,21 @@ An object which represent an user. His phone is unique.
 ```json
 {
     "name": "<the user name>", 
-    "phone": "<the user phone>",
-    "disconnection_date": "<last disconnection date>"
+    "phoneNumber": "<the user phone>",
+    "stateProfile": "<the profile state description's>",
+    "lastConnectionDate": Date
 }
 ```
 
-#### Brief Message
-A brief representation of a message. It does not include the chat where it was sent.
+#### Message
+A message. It does not include the chat where it was sent.
 
 ```json
 {
-    "from": User, 
-    "date": "<the date and time>", 
-    "message": "<the message>"
+    "userSender": User,
+    "sendDate": Date
+    "chat": Chat,
+    "data": byte[]
 }
 ```
 
@@ -30,8 +32,10 @@ An object which represents a chat room.
 
 ```json
 {
+    "id":"<id of the chat>"
     "name": "<the chat name>", 
-    "members": [User],
+    "admins": [User],
+    "users": [User],
     "owner": User
 }
 ```
