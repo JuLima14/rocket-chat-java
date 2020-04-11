@@ -1,9 +1,9 @@
-package com.rocketchat.websocket.core.consumers;
+package com.rocketchat.websocket.consumers;
 
 import com.rocketchat.models.chat.Chat;
+import com.rocketchat.models.message.Message;
 import com.rocketchat.models.user.User;
 import com.rocketchat.websocket.models.Connection;
-import com.rocketchat.models.message.Message;
 
 import java.io.IOException;
 
@@ -15,8 +15,18 @@ public class MessageConsumer implements Consumer {
 
     public MessageConsumer(Chat chat, User user, Connection connection){
         this.chat = chat;
-        this.connection = connection;
         this.user = user;
+        this.connection = connection;
+    }
+
+    @Override
+    public Chat getChat() {
+        return chat;
+    }
+
+    @Override
+    public User getUser() {
+        return user;
     }
 
     @Override

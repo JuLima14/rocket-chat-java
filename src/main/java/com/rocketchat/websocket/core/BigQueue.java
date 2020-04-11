@@ -1,19 +1,22 @@
 package com.rocketchat.websocket.core;
 
-import com.rocketchat.websocket.core.consumers.Consumer;
-import com.rocketchat.websocket.core.producers.Producer;
+import com.rocketchat.models.chat.Chat;
 import com.rocketchat.models.message.Message;
+import com.rocketchat.models.user.User;
+import com.rocketchat.websocket.consumers.Consumer;
+import com.rocketchat.websocket.producers.Producer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-public class QueueExecutor implements Runnable {
+public class BigQueue implements Runnable {
 
     private Producer producer;
     private static List<Consumer> consumers = new ArrayList<>();
 
-    public QueueExecutor(Producer producer) {
+    public BigQueue(Producer producer) {
         this.producer = producer;
         start();
     }
@@ -32,7 +35,6 @@ public class QueueExecutor implements Runnable {
 
                 for (Consumer consumer : consumers) {
                     try {
-                        System.out.println("ejecuto");
                         received.add(consumer.receiveMessage(message));
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -55,13 +57,33 @@ public class QueueExecutor implements Runnable {
             }
     }
 
-    public static void addConsumer(Consumer consumer) {
+    public void addConsumer(Consumer consumer) {
         if(!consumers.contains(consumer)) {
             consumers.add(consumer);
         }
     }
 
-    public static void removeConsumer(Consumer consumer) {
-        consumers.remove(consumer);
+    public void removeConsumer(User user, Chat chat) {
+        Optional<Consumer> consumerFound = consumers.stream()
+                .filter(consumer -> consumer.getUser()
+                .getPhoneNumber().equals(user.getPhoneNumber()))
+                .filter(consumer -> consumer.getChat().equals(chat)).findFirst();
+
+        if (consumerFound.isPresent()) {
+            consumers.remove(consumerFound.get());
+        }
+    }
+
+    // ONLY USE IN CASE OF DISCONNECTION
+    public void removeConsumer(User user) {
+        Optional<Consumer> consumerFound = consumers.stream()
+                .filter(consumer -> consumer
+                        .getUser()
+                        .getPhoneNumber().equals(user.getPhoneNumber()))
+                .findFirst();
+
+        if (consumerFound.isPresent()) {
+            consumers.remove(consumerFound.get());
+        }
     }
 }

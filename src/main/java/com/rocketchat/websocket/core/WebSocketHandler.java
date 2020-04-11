@@ -1,11 +1,10 @@
 package com.rocketchat.websocket.core;
 
-import com.rocketchat.websocket.core.interpreters.JSONInterpreter;
+import com.rocketchat.websocket.interpreters.JSONInterpreter;
 import com.rocketchat.websocket.models.Connection;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.UpgradeRequest;
 import org.eclipse.jetty.websocket.api.annotations.*;
-import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -16,6 +15,8 @@ public class WebSocketHandler {
     private final JSONInterpreter interpreter;
     private final ConnectionsHandler connectionsHandler;
 
+    private static final String USER_ID = "user_id";
+
     public WebSocketHandler(JSONInterpreter interpreter, ConnectionsHandler connectionsHandler) {
         this.interpreter = interpreter;
         this.connectionsHandler = connectionsHandler;
@@ -23,10 +24,10 @@ public class WebSocketHandler {
 
     @OnWebSocketConnect
     public void onConnect(Session session) throws IOException {
-        String userId = getHeader("user_id", session);
+        String userId = getHeader(USER_ID, session);
         if (userId.isEmpty()) {
             System.out.println("Fail to connect with: " + session.getRemoteAddress().getAddress());
-            session.getRemote().sendString("invalid connection");
+            session.getRemote().sendString("Invalid connection");
             session.close();
         } else {
             System.out.println("Connect: " + session.getRemoteAddress().getAddress());
@@ -37,7 +38,7 @@ public class WebSocketHandler {
     @OnWebSocketClose
     public void onClose(Session session, int statusCode, String reason) {
         System.out.println("Close: statusCode=" + statusCode + ", reason=" + reason);
-        String userId = getHeader("user_id", session);
+        String userId = getHeader(USER_ID, session);
         if(!userId.isEmpty()) {
             connectionsHandler.remove(userId);
         }
@@ -51,7 +52,7 @@ public class WebSocketHandler {
     @OnWebSocketMessage
     public void onMessage(Session session, byte[] data, int offset, int length) {
         System.out.println("New Binary Message Received");
-        String userId = getHeader("user_id", session);
+        String userId = getHeader(USER_ID, session);
         if(!userId.isEmpty()) {
             interpreter.process(data, connectionsHandler.get(userId));
         }
@@ -60,7 +61,7 @@ public class WebSocketHandler {
     @OnWebSocketMessage
     public void onMessage(Session session, String message) {
         System.out.println("New Text Message Received");
-        String userId = getHeader("user_id", session);
+        String userId = getHeader(USER_ID, session);
         if(!userId.isEmpty()) {
             interpreter.process(message.getBytes(), connectionsHandler.get(userId));
         }
@@ -77,7 +78,7 @@ public class WebSocketHandler {
             return userId;
         }
 
-        return new String();
+        return "";
     }
 
 }

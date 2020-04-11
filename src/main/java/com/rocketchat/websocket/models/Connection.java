@@ -15,14 +15,6 @@ public class Connection implements MessageSender {
         this.session = session;
     }
 
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
     @Override
     public void sendMessage(Message message) throws IOException {
         session.getRemote().sendBytes(ByteBuffer.wrap(message.getMessage()));

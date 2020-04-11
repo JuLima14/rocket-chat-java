@@ -1,4 +1,4 @@
-package com.rocketchat.websocket.core.interpreters;
+package com.rocketchat.websocket.interpreters;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
