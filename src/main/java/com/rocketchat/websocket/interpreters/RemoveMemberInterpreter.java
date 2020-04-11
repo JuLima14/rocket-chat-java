@@ -46,7 +46,7 @@ public class RemoveMemberInterpreter implements JSONInterpreter {
                     storageChat.set(chatFound.get());
                     // TODO: remove consumers by chat and user
                     bigQueue.removeConsumer(userFound.get(), chatFound.get());
-                    bigQueue.removeConsumer(userFound.get());
+//                    bigQueue.removeConsumer(userFound.get());
                 }
             }
 

@@ -36,12 +36,18 @@ public class ServerBuilder {
     }
 
     private void setupRestApi() {
+        // TODO
+        Storage<User> userStorage = new InMemoryStorage<>();
+        Storage<Chat> chatStorage = new InMemoryStorage<>();
+
+        Producer producer = new MessageProducer();
+        BigQueue bigQueue = new BigQueue(producer);
+
 
     }
 
     private void setupWebSockets() {
         // TODO: Add repository layer to avoid making business logic in every Interpreter.
-        // TODO: Start using the QueueExecutor through Constructor parameters to avoid statics properties/functions.
         Storage<User> userStorage = new InMemoryStorage<>();
         Storage<Chat> chatStorage = new InMemoryStorage<>();
 
