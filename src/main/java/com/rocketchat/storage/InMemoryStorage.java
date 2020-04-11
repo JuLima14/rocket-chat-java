@@ -18,7 +18,6 @@ public class InMemoryStorage<P> implements Storage<P> {
 
     @Override
     public void set(P value) {
-        System.out.println("Value set:" + value);
         storage.add(value);
     }
 
