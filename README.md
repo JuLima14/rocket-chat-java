@@ -21,9 +21,9 @@ A message. It does not include the chat where it was sent.
 ```json
 {
     "userSender": User,
-    "sendDate": Date
+    "sendDate": Date,
     "chat": Chat,
-    "data": byte[]
+    "data": [byte]
 }
 ```
 
@@ -32,7 +32,7 @@ An object which represents a chat room.
 
 ```json
 {
-    "id":"<id of the chat>"
+    "id": "<id of the chat>",
     "name": "<the chat name>", 
     "admins": [User],
     "users": [User],
@@ -40,13 +40,13 @@ An object which represents a chat room.
 }
 ```
 
-#### ChatState
+#### ChatState[TODO]
 An object which contains those messages that were sent while the user did not have an open connection.
 
 ```json
 {
     "chat": Chat,
-    "messages": [BriefMessage]
+    "messages": [Message]
 }
 ```
 
@@ -86,8 +86,8 @@ If any of the chat room’s members has not an open connection, then it is not i
 ```json
 {
     "type": "send_message", 
-    "chat": "<the chat name>", 
-    "message": "<the message>"
+    "chat": Chat, 
+    "message": Message
 }
 ```
 
@@ -97,7 +97,7 @@ The owner of a given chat deletes it. All the members of the chat, including the
 ```json
 {
     "type": "delete_chat", 
-    "chat": "<the chat name>"
+    "chat": Chat
 }
 ```
 
@@ -107,8 +107,8 @@ A chat member adds a new member to the chat. All the members of the chat, includ
 ```json
 {
     "type": "add_member", 
-    "chat": "<the chat name>", 
-    "phone": "<the user phone>"
+    "chat": Chat, 
+    "user": User
 }
 ```
 
@@ -118,13 +118,13 @@ The chat owner removes a member form a chat room. All the members of the room wi
 ```json
 {
     "type": "remove_member", 
-    "chat": "<the chat name>", 
-    "phone": "<the user phone>"
+    "chat": Chat, 
+    "user": User
 }
 ```
 
 
-### Server to Client Messages
+### Server to Client Messages[TODO]
 
 #### Message
 A message produced by a chat member in a chat where the user participates.
