@@ -8,8 +8,6 @@ import java.io.IOException;
 
 public interface Consumer {
     Chat getChat();
-
     User getUser();
-
     Boolean receiveMessage(Message message) throws IOException;
 }
