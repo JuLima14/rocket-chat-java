@@ -46,7 +46,11 @@ public class RemoveMemberInterpreter implements JSONInterpreter {
                     storageChat.set(chatFound.get());
                     // TODO: remove consumers by chat and user
                     bigQueue.removeConsumer(userFound.get(), chatFound.get());
+<<<<<<< HEAD:src/main/java/com/rocketchat/websocket/interpreters/RemoveMemberInterpreter.java
                     bigQueue.removeConsumer(userFound.get());
+=======
+//                    bigQueue.removeConsumer(userFound.get());
+>>>>>>> master:src/main/java/com/rocketchat/websocket/core/interpreters/RemoveMemberInterpreter.java
                 }
             }
 

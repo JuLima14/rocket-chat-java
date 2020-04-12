@@ -24,7 +24,11 @@ public class SendMessageInterpreter implements JSONInterpreter {
     public void process(byte[] data, Connection connection) {
         try {
             SendMessageDto message = gson.fromJson(new String(data), SendMessageDto.class).validate();
+<<<<<<< HEAD:src/main/java/com/rocketchat/websocket/interpreters/SendMessageInterpreter.java
 
+=======
+            
+>>>>>>> master:src/main/java/com/rocketchat/websocket/core/interpreters/SendMessageInterpreter.java
             bigQueue.addConsumer(new MessageConsumer(message.getChat(),
                     message.getMessage().getUserSender(),
                     connection));

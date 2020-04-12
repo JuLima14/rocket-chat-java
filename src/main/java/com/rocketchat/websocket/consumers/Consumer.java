@@ -10,5 +10,9 @@ public interface Consumer {
     Chat getChat();
 
     User getUser();
+<<<<<<< HEAD:src/main/java/com/rocketchat/websocket/consumers/Consumer.java
+=======
+
+>>>>>>> master:src/main/java/com/rocketchat/websocket/core/consumers/Consumer.java
     Boolean receiveMessage(Message message) throws IOException;
 }
