@@ -1,11 +1,12 @@
 
 package com.rocketchat.Main;
 
-import com.rocketchat.core.ServerBuilder;
-import com.rocketchat.core.TypeServer;
+import com.rocketchat.core.ServerImpl;
+import com.rocketchat.core.WebSocketServer;
 
 public class Main {
     public static void main(String[] args) {
-        new ServerBuilder(TypeServer.WEB_SOCKET);
+        final WebSocketServer wss = new WebSocketServer();
+        new ServerImpl(wss);
     }
 }

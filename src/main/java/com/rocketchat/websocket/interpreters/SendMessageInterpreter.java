@@ -24,7 +24,6 @@ public class SendMessageInterpreter implements JSONInterpreter {
     public void process(byte[] data, Connection connection) {
         try {
             SendMessageDto message = gson.fromJson(new String(data), SendMessageDto.class).validate();
-
             bigQueue.addConsumer(new MessageConsumer(message.getChat(),
                     message.getMessage().getUserSender(),
                     connection));
