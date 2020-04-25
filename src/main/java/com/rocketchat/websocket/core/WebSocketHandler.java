@@ -16,6 +16,7 @@ public class WebSocketHandler {
     private final ConnectionsHandler connectionsHandler;
 
     private static final String USER_ID = "user_id";
+    private static final String TYPE_MESSAGE = "type_message";
 
     public WebSocketHandler(JSONInterpreter interpreter, ConnectionsHandler connectionsHandler) {
         this.interpreter = interpreter;
@@ -53,8 +54,10 @@ public class WebSocketHandler {
     public void onMessage(Session session, byte[] data, int offset, int length) {
         System.out.println("New Binary Message Received");
         String userId = getHeader(USER_ID, session);
+        String typeMessage = getHeader(TYPE_MESSAGE, session);
+
         if(!userId.isEmpty()) {
-            interpreter.process(data, connectionsHandler.get(userId));
+            interpreter.process(typeMessage, data, connectionsHandler.get(userId));
         }
     }
 
@@ -62,8 +65,10 @@ public class WebSocketHandler {
     public void onMessage(Session session, String message) {
         System.out.println("New Text Message Received");
         String userId = getHeader(USER_ID, session);
+        String typeMessage = getHeader(TYPE_MESSAGE, session);
+
         if(!userId.isEmpty()) {
-            interpreter.process(message.getBytes(), connectionsHandler.get(userId));
+            interpreter.process(typeMessage, message.getBytes(), connectionsHandler.get(userId));
         }
     }
 

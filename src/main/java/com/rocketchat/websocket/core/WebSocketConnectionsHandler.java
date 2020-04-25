@@ -1,14 +1,12 @@
 package com.rocketchat.websocket.core;
 
-import com.rocketchat.models.user.User;
-import com.rocketchat.storage.Storage;
 import com.rocketchat.websocket.models.Connection;
 
-import java.util.Optional;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class WebSocketConnectionsHandler implements ConnectionsHandler {
-    private ConcurrentHashMap<String, Connection> sessions;
+    private Map<String, Connection> sessions;
 
     public WebSocketConnectionsHandler() {
         this.sessions = new ConcurrentHashMap<>();

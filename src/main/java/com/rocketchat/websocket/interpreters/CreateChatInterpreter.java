@@ -1,32 +1,31 @@
 package com.rocketchat.websocket.interpreters;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import com.rocketchat.core.JsonDecoder;
+import com.rocketchat.core.services.CreateChatService;
 import com.rocketchat.dtos.CreateChatDto;
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.storage.Storage;
 import com.rocketchat.websocket.models.Connection;
 
-public class CreateChatInterpreter implements JSONInterpreter{
+public class CreateChatInterpreter implements JSONInterpreter {
 
-    private Gson gson;
-    private Storage<Chat> storageChat;
+    private JsonDecoder jsonDecoder;
+    private CreateChatService createChatService;
 
-    public CreateChatInterpreter(Gson gson, Storage<Chat> storageChat) {
-        this.gson = gson;
-        this.storageChat = storageChat;
+    public CreateChatInterpreter(JsonDecoder jsonDecoder, Storage<Chat> storageChat) {
+        this.jsonDecoder = jsonDecoder;
+        this.createChatService = new CreateChatService(storageChat);
     }
 
     @Override
-    public void process(byte[] data, Connection connection) {
-        try {
-            CreateChatDto message = gson.fromJson(new String(data), CreateChatDto.class).validate();
+    public void process(String type, byte[] data, Connection connection) {
+        jsonDecoder.fromJson(new String(data), CreateChatDto.class).ifPresent(createChatDto -> {
+            createChatService.execute(createChatDto);
+        });
+    }
 
-            if(!storageChat.get().contains(message.getChat())) {
-                storageChat.set(message.getChat());
-            }
-        } catch (JsonSyntaxException e) {
-            System.out.println("The message is not a CreateChatDto");
-        }
+    @Override
+    public boolean isSupported(String type) {
+        return type.equals("create_chat");
     }
 }

@@ -1,6 +1,7 @@
 package com.rocketchat.resolver;
 
-import com.google.gson.Gson;
+import com.rocketchat.core.GsonJsonDecoder;
+import com.rocketchat.core.JsonDecoder;
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.models.user.User;
 import com.rocketchat.storage.InMemoryStorage;
@@ -19,7 +20,7 @@ public class DependenciesResolver {
 
     BigQueue bigQueue;
     Producer producer;
-    Gson gson;
+    JsonDecoder jsonStrategy;
     Storage<User> userStorage;
     Storage<Chat> chatStorage;
     JSONInterpreterFactory jsonInterpreterFactory;
@@ -32,8 +33,8 @@ public class DependenciesResolver {
         bigQueue = new BigQueue(producer);
         userStorage = new InMemoryStorage<>();
         chatStorage = new InMemoryStorage<>();
-        gson = new Gson();
-        jsonInterpreterFactory = new JSONInterpreterFactory(userStorage, chatStorage, gson, bigQueue, producer);
+        jsonStrategy = new GsonJsonDecoder();
+        jsonInterpreterFactory = new JSONInterpreterFactory(userStorage, chatStorage, jsonStrategy, bigQueue, producer);
         jsonInterpreterProcessor = new JSONInterpreterProcessor(jsonInterpreterFactory.getInterpreters());
         webSocketConnectionsHandler = new WebSocketConnectionsHandler();
         webSocketHandler = new WebSocketHandler(jsonInterpreterProcessor, webSocketConnectionsHandler);
@@ -54,8 +55,8 @@ public class DependenciesResolver {
         return producer;
     }
 
-    public Gson resolveGson() {
-        return gson;
+    public JsonDecoder resolveJSONStrategy() {
+        return jsonStrategy;
     }
 
     public Storage<User> resolveUserStorage() {

@@ -1,42 +1,31 @@
 package com.rocketchat.websocket.interpreters;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import com.rocketchat.core.JsonDecoder;
+import com.rocketchat.core.services.RegisterUserService;
 import com.rocketchat.dtos.RegisterUserDto;
 import com.rocketchat.models.user.User;
 import com.rocketchat.storage.Storage;
 import com.rocketchat.websocket.models.Connection;
 
-import java.util.Optional;
-
 public class RegisterUserInterpreter implements JSONInterpreter {
 
-    private Gson gson;
-    private Storage<User> userStorage;
+    private JsonDecoder jsonDecoder;
+    private RegisterUserService registerUserService;
 
-    public RegisterUserInterpreter(Gson gson, Storage<User> userStorage) {
-        this.gson = gson;
-        this.userStorage = userStorage;
+    public RegisterUserInterpreter(JsonDecoder jsonDecoder, Storage<User> userStorage) {
+        this.jsonDecoder = jsonDecoder;
+        this.registerUserService = new RegisterUserService(userStorage);
     }
 
     @Override
-    public void process(byte[] data, Connection connection) {
-        try {
-            RegisterUserDto message = gson.fromJson(new String(data), RegisterUserDto.class).validate();
+    public void process(String type, byte[] data, Connection connection) {
+        jsonDecoder.fromJson(new String(data), RegisterUserDto.class).ifPresent( registerUserDto -> {
+            registerUserService.execute(registerUserDto);
+        });
+    }
 
-            Optional<User> userFound = userStorage.get().stream()
-                    .filter(user -> user.getPhoneNumber().equals(message.getUser().getPhoneNumber()))
-                    .findFirst();
-
-            if(!userFound.isPresent()) {
-                userStorage.set(message.getUser());
-            }
-        }
-        catch (NullPointerException e) {
-            System.out.println("The User is Null");
-        }
-        catch (JsonSyntaxException e) {
-            System.out.println("The message is not a RegisterUserDto");
-        }
+    @Override
+    public boolean isSupported(String type) {
+        return type.equals("register_user");
     }
 }

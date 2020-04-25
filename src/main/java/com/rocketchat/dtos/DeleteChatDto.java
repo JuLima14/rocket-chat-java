@@ -3,12 +3,11 @@ package com.rocketchat.dtos;
 import com.google.gson.JsonSyntaxException;
 import com.rocketchat.models.chat.Chat;
 
-public class DeleteChatDto extends DataTransferObjectType {
+public class DeleteChatDto {
 
     private Chat chat;
 
-    public DeleteChatDto(String type, Chat chat) {
-        super(type);
+    public DeleteChatDto(Chat chat) {
         this.chat = chat;
     }
 
@@ -18,13 +17,5 @@ public class DeleteChatDto extends DataTransferObjectType {
 
     public void setChat(Chat chat) {
         this.chat = chat;
-    }
-
-    @Override
-    public DeleteChatDto validate() throws JsonSyntaxException {
-        if(!type.equals("delete_chat")) {
-            throw new JsonSyntaxException("!type.equals(\"delete_chat\")");
-        }
-        return this;
     }
 }

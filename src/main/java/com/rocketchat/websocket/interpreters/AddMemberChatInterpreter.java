@@ -1,26 +1,30 @@
 package com.rocketchat.websocket.interpreters;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import com.rocketchat.core.JsonDecoder;
+import com.rocketchat.core.services.AddMemberChatService;
 import com.rocketchat.dtos.AddMemberDto;
 import com.rocketchat.websocket.models.Connection;
 
-
+// TODO
 public class AddMemberChatInterpreter implements JSONInterpreter {
 
-    private Gson gson;
+    private JsonDecoder jsonDecoder;
+    private AddMemberChatService addMemberChatService;
 
-    public AddMemberChatInterpreter(Gson gson) {
-        this.gson = gson;
+    public AddMemberChatInterpreter(JsonDecoder jsonDecoder) {
+        this.jsonDecoder = jsonDecoder;
+        this.addMemberChatService = new AddMemberChatService();
     }
 
     @Override
-    public void process(byte[] data, Connection connection) {
-        try {
-            AddMemberDto message = gson.fromJson(new String(data), AddMemberDto.class).validate();
+    public void process(String type, byte[] data, Connection connection) {
+        jsonDecoder.fromJson(new String(data), AddMemberDto.class).ifPresent(addMemberDto -> {
+            addMemberChatService.execute();
+        });
+    }
 
-        } catch (JsonSyntaxException e) {
-            System.out.println("The message is not a AddMemberDto");
-        }
+    @Override
+    public boolean isSupported(String type) {
+        return type.equals("add_member");
     }
 }

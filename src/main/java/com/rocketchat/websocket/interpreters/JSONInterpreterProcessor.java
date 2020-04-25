@@ -13,7 +13,15 @@ public class JSONInterpreterProcessor implements JSONInterpreter {
     }
 
     @Override
-    public void process(byte[] data, Connection connection) {
-        interpreters.stream().forEach(jsonInterpreter -> jsonInterpreter.process(data, connection));
+    public void process(String type, byte[] data, Connection connection) {
+        interpreters.stream()
+                .filter(interpreter -> interpreter.isSupported(type))
+                .forEach(jsonInterpreter -> jsonInterpreter.process(type, data, connection));
+    }
+
+    @Override
+    public boolean isSupported(String type) {
+        return interpreters.stream()
+                .anyMatch(interpreter -> interpreter.isSupported(type));
     }
 }

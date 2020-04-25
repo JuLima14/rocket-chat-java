@@ -1,6 +1,6 @@
 package com.rocketchat.websocket.interpreters;
 
-import com.google.gson.Gson;
+import com.rocketchat.core.JsonDecoder;
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.models.user.User;
 import com.rocketchat.storage.Storage;
@@ -11,16 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JSONInterpreterFactory {
-    Gson gson;
+    JsonDecoder jsonDecoder;
     Storage<User> userStorage;
     Storage<Chat> chatStorage;
     BigQueue bigQueue;
     Producer producer;
 
-    public JSONInterpreterFactory(Storage<User> userStorage, Storage<Chat> chatStorage, Gson gson, BigQueue bigQueue, Producer producer) {
+    public JSONInterpreterFactory(Storage<User> userStorage, Storage<Chat> chatStorage, JsonDecoder jsonDecoder, BigQueue bigQueue, Producer producer) {
         this.userStorage = userStorage;
         this.chatStorage = chatStorage;
-        this.gson = gson;
+        this.jsonDecoder = jsonDecoder;
         this.bigQueue = bigQueue;
         this.producer = producer;
     }
@@ -39,26 +39,26 @@ public class JSONInterpreterFactory {
     }
 
     public JSONInterpreter getRegisterUserInterpreter() {
-        return new RegisterUserInterpreter(gson, userStorage);
+        return new RegisterUserInterpreter(jsonDecoder, userStorage);
     }
 
     public JSONInterpreter getAddMemberChatInterpreter() {
-        return new AddMemberChatInterpreter(gson);
+        return new AddMemberChatInterpreter(jsonDecoder);
     }
 
     public JSONInterpreter getCreateChatInterpreter() {
-        return new CreateChatInterpreter(gson, chatStorage);
+        return new CreateChatInterpreter(jsonDecoder, chatStorage);
     }
 
     public JSONInterpreter getDeleteChatInterpreter() {
-        return new DeleteChatInterpreter(gson, chatStorage);
+        return new DeleteChatInterpreter(jsonDecoder, chatStorage);
     }
 
     public JSONInterpreter getRemoveMemberInterpreter() {
-        return new RemoveMemberInterpreter(gson, chatStorage, bigQueue);
+        return new RemoveMemberInterpreter(jsonDecoder, chatStorage, bigQueue);
     }
 
     public JSONInterpreter getSendMessageInterpreter() {
-        return new SendMessageInterpreter(gson, producer, bigQueue);
+        return new SendMessageInterpreter(jsonDecoder, producer, bigQueue);
     }
 }

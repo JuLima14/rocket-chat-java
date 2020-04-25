@@ -3,12 +3,11 @@ package com.rocketchat.dtos;
 import com.google.gson.JsonSyntaxException;
 import com.rocketchat.models.user.User;
 
-public class RegisterUserDto extends DataTransferObjectType {
+public class RegisterUserDto {
 
     private User user;
 
-    public RegisterUserDto(String type, User user) {
-        super(type);
+    public RegisterUserDto(User user) {
         this.user = user;
     }
 
@@ -18,13 +17,5 @@ public class RegisterUserDto extends DataTransferObjectType {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    @Override
-    public RegisterUserDto validate() throws JsonSyntaxException {
-        if(!type.equals("register_user")) {
-            throw new JsonSyntaxException("!type.equals(\"register_user\")");
-        }
-        return this;
     }
 }

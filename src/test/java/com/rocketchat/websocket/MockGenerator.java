@@ -49,7 +49,7 @@ public class MockGenerator {
                 "Hey im using rocket chat",
                 Calendar.getInstance().getTime());
 
-        AddMemberDto addMemberDto = new AddMemberDto(chat, user, "add_member");
+        AddMemberDto addMemberDto = new AddMemberDto(chat, user);
 
         System.out.println(new Gson().toJson(addMemberDto));
 
@@ -57,13 +57,13 @@ public class MockGenerator {
     }
 
     public CreateChatDto getCreateChatDto() {
-        CreateChatDto createChatDto = new CreateChatDto("create_chat", getChat());
+        CreateChatDto createChatDto = new CreateChatDto(getChat());
         System.out.println(new Gson().toJson(createChatDto));
         return createChatDto;
     }
 
     public DeleteChatDto getDeleteChatDto() {
-        DeleteChatDto deleteChatDto = new DeleteChatDto("delete_chat", getChat());
+        DeleteChatDto deleteChatDto = new DeleteChatDto(getChat());
         System.out.println(new Gson().toJson(deleteChatDto));
         return deleteChatDto;
     }
@@ -74,7 +74,7 @@ public class MockGenerator {
                 "123456789",
                 "Hey im using rocket chat",
                 Calendar.getInstance().getTime());
-        RegisterUserDto registerUserDto = new RegisterUserDto("register_user", user);
+        RegisterUserDto registerUserDto = new RegisterUserDto(user);
         System.out.println(new Gson().toJson(registerUserDto));
         return registerUserDto;
     }
@@ -85,7 +85,7 @@ public class MockGenerator {
                 "123456789",
                 "Hey im using rocket chat",
                 Calendar.getInstance().getTime());
-        RemoveMemberDto removeMemberDto = new RemoveMemberDto("remove_member", getChat(), user);
+        RemoveMemberDto removeMemberDto = new RemoveMemberDto(getChat(), user);
         System.out.println(new Gson().toJson(removeMemberDto));
         return removeMemberDto;
     }
@@ -101,7 +101,7 @@ public class MockGenerator {
                 Calendar.getInstance().getTime(),
                 "Hola, todo bien ?");
 
-        SendMessageDto sendMessageDto = new SendMessageDto("send_message", getChat(), message);
+        SendMessageDto sendMessageDto = new SendMessageDto(getChat(), message);
         System.out.println(new Gson().toJson(sendMessageDto));
         return sendMessageDto;
     }

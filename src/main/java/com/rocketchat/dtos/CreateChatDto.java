@@ -1,14 +1,12 @@
 package com.rocketchat.dtos;
 
-import com.google.gson.JsonSyntaxException;
 import com.rocketchat.models.chat.Chat;
 
-public class CreateChatDto extends DataTransferObjectType {
+public class CreateChatDto {
 
     private Chat chat;
 
-    public CreateChatDto(String type, Chat chat) {
-        super(type);
+    public CreateChatDto(Chat chat) {
         this.chat = chat;
     }
 
@@ -18,13 +16,5 @@ public class CreateChatDto extends DataTransferObjectType {
 
     public void setChat(Chat chat) {
         this.chat = chat;
-    }
-
-    @Override
-    public CreateChatDto validate() throws JsonSyntaxException {
-        if(!type.equals("create_chat")) {
-            throw new JsonSyntaxException("!type.equals(\"create_chat\")");
-        }
-        return this;
     }
 }
