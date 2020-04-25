@@ -1,10 +1,10 @@
-package com.rocketchat.websocket.core;
+package com.rocketchat.core.bigqueue;
 
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.models.message.Message;
 import com.rocketchat.models.user.User;
-import com.rocketchat.websocket.consumers.Consumer;
-import com.rocketchat.websocket.producers.Producer;
+import com.rocketchat.websocket.core.Consumer;
+import com.rocketchat.websocket.core.Producer;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -3,6 +3,7 @@ package com.rocketchat.websocket.interpreters;
 import com.rocketchat.core.JsonDecoder;
 import com.rocketchat.core.services.AddMemberChatService;
 import com.rocketchat.dtos.AddMemberDto;
+import com.rocketchat.websocket.core.JSONInterpreter;
 import com.rocketchat.websocket.models.Connection;
 
 // TODO

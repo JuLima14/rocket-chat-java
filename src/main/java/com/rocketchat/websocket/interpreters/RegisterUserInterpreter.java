@@ -5,6 +5,7 @@ import com.rocketchat.core.services.RegisterUserService;
 import com.rocketchat.dtos.RegisterUserDto;
 import com.rocketchat.models.user.User;
 import com.rocketchat.storage.Storage;
+import com.rocketchat.websocket.core.JSONInterpreter;
 import com.rocketchat.websocket.models.Connection;
 
 public class RegisterUserInterpreter implements JSONInterpreter {

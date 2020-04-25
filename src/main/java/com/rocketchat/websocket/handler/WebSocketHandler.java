@@ -1,6 +1,7 @@
-package com.rocketchat.websocket.core;
+package com.rocketchat.websocket.handler;
 
-import com.rocketchat.websocket.interpreters.JSONInterpreter;
+import com.rocketchat.websocket.core.ConnectionsHandler;
+import com.rocketchat.websocket.core.JSONInterpreter;
 import com.rocketchat.websocket.models.Connection;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.UpgradeRequest;
@@ -85,6 +86,5 @@ public class WebSocketHandler {
 
         return "";
     }
-
 }
 

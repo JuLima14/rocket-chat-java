@@ -5,7 +5,8 @@ import com.rocketchat.core.services.RemoveMemberService;
 import com.rocketchat.dtos.RemoveMemberDto;
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.storage.Storage;
-import com.rocketchat.websocket.core.BigQueue;
+import com.rocketchat.core.bigqueue.BigQueue;
+import com.rocketchat.websocket.core.JSONInterpreter;
 import com.rocketchat.websocket.models.Connection;
 
 public class RemoveMemberInterpreter implements JSONInterpreter {

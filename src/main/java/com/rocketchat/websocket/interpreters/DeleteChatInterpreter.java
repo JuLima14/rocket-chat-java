@@ -5,6 +5,7 @@ import com.rocketchat.core.services.DeleteChatService;
 import com.rocketchat.dtos.DeleteChatDto;
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.storage.Storage;
+import com.rocketchat.websocket.core.JSONInterpreter;
 import com.rocketchat.websocket.models.Connection;
 
 public class DeleteChatInterpreter implements JSONInterpreter {

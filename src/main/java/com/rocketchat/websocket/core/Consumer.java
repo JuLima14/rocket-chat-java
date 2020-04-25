@@ -1,4 +1,4 @@
-package com.rocketchat.websocket.consumers;
+package com.rocketchat.websocket.core;
 
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.models.message.Message;

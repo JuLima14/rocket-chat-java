@@ -5,6 +5,7 @@ import com.rocketchat.core.services.CreateChatService;
 import com.rocketchat.dtos.CreateChatDto;
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.storage.Storage;
+import com.rocketchat.websocket.core.JSONInterpreter;
 import com.rocketchat.websocket.models.Connection;
 
 public class CreateChatInterpreter implements JSONInterpreter {

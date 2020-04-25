@@ -4,8 +4,9 @@ import com.rocketchat.core.JsonDecoder;
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.models.user.User;
 import com.rocketchat.storage.Storage;
-import com.rocketchat.websocket.core.BigQueue;
-import com.rocketchat.websocket.producers.Producer;
+import com.rocketchat.core.bigqueue.BigQueue;
+import com.rocketchat.websocket.core.JSONInterpreter;
+import com.rocketchat.websocket.core.Producer;
 
 import java.util.ArrayList;
 import java.util.List;

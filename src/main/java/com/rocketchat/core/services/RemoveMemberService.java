@@ -3,7 +3,7 @@ package com.rocketchat.core.services;
 import com.rocketchat.dtos.RemoveMemberDto;
 import com.rocketchat.models.chat.Chat;
 import com.rocketchat.storage.Storage;
-import com.rocketchat.websocket.core.BigQueue;
+import com.rocketchat.core.bigqueue.BigQueue;
 
 public class RemoveMemberService {
 

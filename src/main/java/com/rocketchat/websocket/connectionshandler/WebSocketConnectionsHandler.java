@@ -1,5 +1,6 @@
-package com.rocketchat.websocket.core;
+package com.rocketchat.websocket.connectionshandler;
 
+import com.rocketchat.websocket.core.ConnectionsHandler;
 import com.rocketchat.websocket.models.Connection;
 
 import java.util.Map;

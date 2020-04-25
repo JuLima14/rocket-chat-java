@@ -1,4 +1,4 @@
-package com.rocketchat.websocket.interpreters;
+package com.rocketchat.websocket.core;
 
 import com.rocketchat.websocket.models.Connection;
 

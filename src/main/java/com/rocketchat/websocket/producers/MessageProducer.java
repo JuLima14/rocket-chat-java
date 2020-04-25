@@ -1,6 +1,7 @@
 package com.rocketchat.websocket.producers;
 
 import com.rocketchat.models.message.Message;
+import com.rocketchat.websocket.core.Producer;
 
 import java.util.LinkedList;
 import java.util.Queue;

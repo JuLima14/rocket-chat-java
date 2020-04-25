@@ -1,7 +1,7 @@
 package com.rocketchat.websocket.models;
 
 import com.rocketchat.models.message.Message;
-import com.rocketchat.models.user.User;
+import com.rocketchat.websocket.core.MessageSender;
 import org.eclipse.jetty.websocket.api.Session;
 
 import java.io.IOException;

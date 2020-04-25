@@ -2,9 +2,9 @@ package com.rocketchat.core.services;
 
 import com.rocketchat.dtos.SendMessageDto;
 import com.rocketchat.websocket.consumers.MessageConsumer;
-import com.rocketchat.websocket.core.BigQueue;
+import com.rocketchat.core.bigqueue.BigQueue;
 import com.rocketchat.websocket.models.Connection;
-import com.rocketchat.websocket.producers.Producer;
+import com.rocketchat.websocket.core.Producer;
 
 public class SendMessageService {
 

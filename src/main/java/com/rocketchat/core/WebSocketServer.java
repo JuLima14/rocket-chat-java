@@ -1,7 +1,7 @@
 package com.rocketchat.core;
 
 import com.rocketchat.resolver.DependenciesResolver;
-import com.rocketchat.websocket.core.WebSocketHandler;
+import com.rocketchat.websocket.handler.WebSocketHandler;
 
 import static spark.Spark.webSocket;
 

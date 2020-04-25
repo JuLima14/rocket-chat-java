@@ -1,5 +1,6 @@
 package com.rocketchat.websocket.interpreters;
 
+import com.rocketchat.websocket.core.JSONInterpreter;
 import com.rocketchat.websocket.models.Connection;
 
 import java.util.List;
