@@ -61,7 +61,7 @@ When the server receives this message, it will automatically send an state messa
 
 ```json
 {
-    "type": "register", 
+    "type": "register_user", 
     "user": User
 }
 ```
